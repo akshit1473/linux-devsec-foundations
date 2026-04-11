@@ -26,7 +26,9 @@ echo "$AUDIT_PATH" | tr ':' '\n' | while read dir; do
 done
 echo ""
 echo "================================"
+echo "Incase of a warning or a critical issue, make sure to take action!"
 echo "Audit complete."
 echo "================================"
+
 
 
