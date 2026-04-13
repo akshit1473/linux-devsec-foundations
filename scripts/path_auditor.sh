@@ -1,14 +1,25 @@
+
 #!/usr/bin/bash
 AUDIT_PATH="$PATH"
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin                                              
+LOG="$HOME/logs/path_audit.log"
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+
+mkdir -p "$HOME/logs"
+echo "================================"
+echo "PATH Security Audit Report"
+echo "started:  $TIMESTAMP"
+echo "================================"
 echo ""
 echo "Current PATH:"
 echo "$AUDIT_PATH" | tr ':' '\n'
 echo ""
+
+
 echo "--- Directory Analysis ---"
 echo ""
 echo "$AUDIT_PATH" | tr ':' '\n' | while read dir; do
-
+	
     if [ "$dir" = "." ]; then
         echo "[CRITICAL] Current directory in PATH"
     elif [ "$dir" = "" ]; then
@@ -26,9 +37,5 @@ echo "$AUDIT_PATH" | tr ':' '\n' | while read dir; do
 done
 echo ""
 echo "================================"
-echo "Incase of a warning or a critical issue, make sure to take action!"
-echo "Audit complete."
+echo "Audit complete.  logs saved to : $LOG"
 echo "================================"
-
-
-
