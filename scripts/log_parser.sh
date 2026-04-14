@@ -1,7 +1,8 @@
+#!/usr/bin/bash 
 # LOG PARSER 
 # description => It takes a log file filled with raw unfiltered data and filters by keyword, counts occurrences, and writes a summary creating readable and understandable information that the user can understand.
 
-#!/usr/bin/bash 
+
 
 LOGFILE="$1"
 
