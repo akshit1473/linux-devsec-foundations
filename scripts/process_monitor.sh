@@ -20,7 +20,6 @@ $4 < 30 {$0}
 echo ""
 echo "[TOP MEMORY PROCESSES]"
 echo '-------------------------'
-
 ps -eo pid,comm,state,%cpu,%mem  --sort=-%mem |grep -v ps |  head -n 6
 
 
@@ -28,6 +27,18 @@ echo ""
 echo "[PROCESS STATES]: "
 echo '-----------------------'
 ps -eo pid,comm,state,%cpu,%mem --sort=-%cpu | grep -v ps |  head -n 11
+
+echo ""
+echo "[ZOMBIES PROCESS]"
+echo "-----------------------"
+
+zombies=$(ps -eo pid,comm,state | awk '$3 ~/z/')
+
+if [ -z "$zombies" ];then
+echo "none detected"
+else 
+echo "$zombies"
+fi
 
 # -eo allows user to basically cherry pick what  fields they want to see
 
