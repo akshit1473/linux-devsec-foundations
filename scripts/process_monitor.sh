@@ -24,7 +24,7 @@ NR > 1 && $2 != "ps" {
 echo ""
 echo "[TOP MEMORY PROCESSES]"
 echo '-------------------------'
-get_top_memory_json()
+get_top_mem_json()
 {
 ps -eo pid,comm,state,%cpu,%mem  --sort=-%mem | awk '
 NR > 1 && $2 != "ps" {
@@ -51,6 +51,9 @@ echo "none detected"
 else 
 echo "$zombies"
 fi
+
+main_json()
+{
 echo "{"
 echo "\"top_cpu\": ["
 get_top_cpu_json
@@ -59,6 +62,23 @@ echo "],"
 echo "\"top_mem\": ["
 get_top_mem_json
 echo "],"
+echo "{"
+}
+
+main_cli(){
+echo "[TOP CPU PROCESSES]"
+echo "[TOP MEMORY PROCESSES]"
+}
+
+if [ "$1" =="--json"];then
+main_json
+else
+main_cli
+if
+
+
+
+
 
 # -eo allows user to basically cherry pick what  fields they want to see
 
