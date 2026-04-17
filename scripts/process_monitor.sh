@@ -8,7 +8,6 @@ echo ""
 echo "[TOP CPU PROCESSES] "
 echo '-----------------------'
 
-printf "%-15s"
 get_top_cpu_json()
 {
 ps -eo pid,comm,state,%cpu,%mem --sort=-%cpu |  awk '
@@ -44,7 +43,7 @@ echo ""
 echo "[ZOMBIES PROCESS]"
 echo "-----------------------"
 
-zombies=$(ps -eo pid,comm,state | awk '$3 ~/z/')
+zombies=$(ps -eo pid,comm,state | awk '$3 ~/Z/')
 
 if [ -z "$zombies" ];then
 echo "none detected"
@@ -62,23 +61,22 @@ echo "],"
 echo "\"top_mem\": ["
 get_top_mem_json
 echo "],"
-echo "{"
+echo "}"
 }
 
-main_cli(){
+main_cli()
+{
 echo "[TOP CPU PROCESSES]"
+get_top_cpu_json
 echo "[TOP MEMORY PROCESSES]"
+get_top_mem_json
 }
 
-if [ "$1" =="--json"];then
+if [ "$1" == "--json" ]; then
 main_json
 else
 main_cli
-if
-
-
-
-
+fi
 
 # -eo allows user to basically cherry pick what  fields they want to see
 
