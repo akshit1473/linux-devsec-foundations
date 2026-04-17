@@ -5,7 +5,8 @@ get_top_cpu_json()
 ps -eo pid=,comm=,state=,%cpu=,%mem= --sort=-%cpu |  awk '
 $2 != "ps" {
 count++
-data[count]=sprintf"({\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s}",
+data[count]= sprintf(
+"{\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s}",
         $1, $2, $3, $4, $5
     )
     }
@@ -22,7 +23,8 @@ get_top_mem_json()
 ps -eo pid=,comm=,state=,%cpu=,%mem=  --sort=-%mem | awk '
  $2 != "ps" {
  count++
-      data[count]=sprintf"({\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s}",
+      data[count]= sprintf(
+      "{\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s}",
         $1, $2, $3, $4, $5
     )
 }
@@ -76,7 +78,7 @@ echo ""
 echo "[ZOMBIES PROCESS]"
 echo "-----------------------"
 
-zombies=$(ps -eo pid,comm,state | awk '$3 ~ /Z/')
+zombies=$(ps -eo pid=,comm=,state= | awk '$3 ~ /Z/')
 
 if [ -z "$zombies" ];then
 echo "none detected"
