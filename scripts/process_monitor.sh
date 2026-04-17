@@ -3,18 +3,20 @@
 echo " =================================================="
 echo  "                    PROCESS MONITOR               "
 echo " ================================================="
+
 echo ""
 echo "[TOP CPU PROCESSES] "
 echo '-----------------------'
 
 printf "%-15s"
+get_top_cpu_json()
+{
+ps -eo pid,comm,state,%cpu,%mem --sort=-%cpu |  awk '
+NR > 1 && $2 != "ps"{
 
-ps -eo pid,comm,state,%cpu,%mem --sort=-%cpu |  awk ' 
-NR ==1  {print;next}
-$2 =="ps"  {next}
-$4 >  30 {print "HIGH CPU" , $0}
-$4 < 30 {$0}
-'
+}
+
+
 #sort through the processes with the highest cpu usage and  show the top 5.
 
 echo ""
