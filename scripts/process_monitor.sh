@@ -3,21 +3,35 @@
 get_top_cpu_json()
 {
 ps -eo pid=,comm=,state=,%cpu=,%mem= --sort=-%cpu |  awk '
-NR > 1 && $2 != "ps" {
-        printf "{\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s},\n",
+$2 != "ps" {
+count++
+data[count]=sprintf"({\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s}",
         $1, $2, $3, $4, $5
+    )
     }
-    ' | head -n 5
+ END {
+    for (i=1; i<=count && i<=5; i++) {
+        printf "%s", data[i]
+        if (i < 5 && i < count) printf ",\n"
+    }
+}'
 }
 
 get_top_mem_json()
 {
 ps -eo pid=,comm=,state=,%cpu=,%mem=  --sort=-%mem | awk '
-NR > 1 && $2 != "ps" {
-        printf "{\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s},\n",
+ $2 != "ps" {
+ count++
+      data[count]=sprintf"({\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s}",
         $1, $2, $3, $4, $5
+    )
+}
+ END {
+    for (i=1; i<=count && i<=5; i++) {
+        printf "%s", data[i]
+        if (i < 5 && i < count) printf ",\n"
     }
-    ' | head -n 5
+}'
 }
 
 
