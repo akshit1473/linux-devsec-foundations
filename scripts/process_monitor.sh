@@ -51,6 +51,14 @@ echo "none detected"
 else 
 echo "$zombies"
 fi
+echo "{"
+echo "\"top_cpu\": ["
+get_top_cpu_json
+echo "],"
+
+echo "\"top_mem\": ["
+get_top_mem_json
+echo "],"
 
 # -eo allows user to basically cherry pick what  fields they want to see
 
