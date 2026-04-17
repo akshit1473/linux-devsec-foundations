@@ -46,8 +46,6 @@ echo "[TOP CPU PROCESSES] "
 echo '-----------------------'
 get_top_cpu_json
 
-
-
 echo ""
 echo "--------------------------"
 echo "[TOP MEMORY PROCESSES]"
@@ -64,13 +62,17 @@ echo ""
 echo "[ZOMBIES PROCESS]"
 echo "-----------------------"
 
-zombies=$(ps -eo pid,comm,state | awk '$3 ~/Z/')
+zombies=$(ps -eo pid,comm,state | awk '$3 ~ /Z/')
 
 if [ -z "$zombies" ];then
 echo "none detected"
 else 
 echo "$zombies"
 fi
+echo "========================================="
+echo  "      PROCESS MONITOR COMPLETE          "
+echo "========================================="
+}
 
 # control flow
 if [ "$1" == "--json" ]; then
@@ -78,10 +80,3 @@ main_json
 else
 main_cli
 fi
-
-# -eo allows user to basically cherry pick what  fields they want to see
-
-echo "========================================="
-echo  "      PROCESS MONITOR COMPLETE          "
-echo "========================================="
-
