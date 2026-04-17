@@ -2,7 +2,7 @@
 
 get_top_cpu_json()
 {
-ps -eo pid,comm,state,%cpu,%mem --sort=-%cpu |  awk '
+ps -eo pid=,comm=,state=,%cpu=,%mem= --sort=-%cpu |  awk '
 NR > 1 && $2 != "ps" {
         printf "{\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s},\n",
         $1, $2, $3, $4, $5
@@ -12,7 +12,7 @@ NR > 1 && $2 != "ps" {
 
 get_top_mem_json()
 {
-ps -eo pid,comm,state,%cpu,%mem  --sort=-%mem | awk '
+ps -eo pid=,comm=,state=,%cpu=,%mem=  --sort=-%mem | awk '
 NR > 1 && $2 != "ps" {
         printf "{\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s},\n",
         $1, $2, $3, $4, $5
@@ -44,19 +44,19 @@ echo ""
 echo "-----------------------"
 echo "[TOP CPU PROCESSES] "
 echo '-----------------------'
-ps -eo pid,comm,state,%cpu,%mem --sort=-%cpu | head -n 6
+ps -eo pid=,comm=,state=,%cpu=,%mem= --sort=-%cpu | head -n 6
 
 echo ""
 echo "--------------------------"
 echo "[TOP MEMORY PROCESSES]"
 echo '-------------------------'
-ps -eo pid,comm,state,%cpu,%mem --sort=-%mem | head -n 6
+ps -eo pid=,comm=,state=,%cpu=,%mem= --sort=-%mem | head -n 6
 
 
 echo ""
 echo "[PROCESS STATES]: "
 echo '-----------------------'
-ps -eo pid,comm,state,%cpu,%mem --sort=-%cpu | grep -v ps |  head -n 11
+ps -eo pid=,comm=,state=,%cpu=,%mem= --sort=-%cpu | grep -v ps |  head -n 11
 
 echo ""
 echo "[ZOMBIES PROCESS]"
