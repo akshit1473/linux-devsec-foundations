@@ -44,13 +44,13 @@ echo ""
 echo "-----------------------"
 echo "[TOP CPU PROCESSES] "
 echo '-----------------------'
-get_top_cpu_json
+ps -eo pid,comm,state,%cpu,%mem --sort=-%cpu | head -n 6
 
 echo ""
 echo "--------------------------"
 echo "[TOP MEMORY PROCESSES]"
 echo '-------------------------'
-get_top_mem_json
+ps -eo pid,comm,state,%cpu,%mem --sort=-%mem | head -n 6
 
 
 echo ""
