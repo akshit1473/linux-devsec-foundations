@@ -1,13 +1,5 @@
 #!usr/bin/bash
 
-echo " =================================================="
-echo  "                    PROCESS MONITOR               "
-echo " ================================================="
-
-echo ""
-echo "[TOP CPU PROCESSES] "
-echo '-----------------------'
-
 get_top_cpu_json()
 {
 ps -eo pid,comm,state,%cpu,%mem --sort=-%cpu |  awk '
@@ -18,11 +10,6 @@ NR > 1 && $2 != "ps" {
     ' | head -n 5
 }
 
-#sort through the processes with the highest cpu usage and  show the top 5.
-
-echo ""
-echo "[TOP MEMORY PROCESSES]"
-echo '-------------------------'
 get_top_mem_json()
 {
 ps -eo pid,comm,state,%cpu,%mem  --sort=-%mem | awk '
@@ -32,6 +19,40 @@ NR > 1 && $2 != "ps" {
     }
     ' | head -n 5
 }
+
+
+main_json() {
+    echo "{"
+    echo "\"top_cpu\": ["
+    get_top_cpu_json
+    echo "],"
+
+    echo "\"top_mem\": ["
+    get_top_mem_json
+    echo "]"
+    echo "}"
+}
+
+
+main_cli()
+{
+echo " =================================================="
+echo  "                    PROCESS MONITOR               "
+echo " ================================================="
+
+echo ""
+echo "-----------------------"
+echo "[TOP CPU PROCESSES] "
+echo '-----------------------'
+get_top_cpu_json
+
+
+
+echo ""
+echo "--------------------------"
+echo "[TOP MEMORY PROCESSES]"
+echo '-------------------------'
+get_top_mem_json
 
 
 echo ""
@@ -51,27 +72,7 @@ else
 echo "$zombies"
 fi
 
-main_json()
-{
-echo "{"
-echo "\"top_cpu\": ["
-get_top_cpu_json
-echo "],"
-
-echo "\"top_mem\": ["
-get_top_mem_json
-echo "],"
-echo "}"
-}
-
-main_cli()
-{
-echo "[TOP CPU PROCESSES]"
-get_top_cpu_json
-echo "[TOP MEMORY PROCESSES]"
-get_top_mem_json
-}
-
+# control flow
 if [ "$1" == "--json" ]; then
 main_json
 else
