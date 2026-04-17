@@ -12,17 +12,27 @@ printf "%-15s"
 get_top_cpu_json()
 {
 ps -eo pid,comm,state,%cpu,%mem --sort=-%cpu |  awk '
-NR > 1 && $2 != "ps"{
-
+NR > 1 && $2 != "ps" {
+        printf "{\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s},\n",
+        $1, $2, $3, $4, $5
+    }
+    ' | head -n 5
 }
-
 
 #sort through the processes with the highest cpu usage and  show the top 5.
 
 echo ""
 echo "[TOP MEMORY PROCESSES]"
 echo '-------------------------'
-ps -eo pid,comm,state,%cpu,%mem  --sort=-%mem |grep -v ps |  head -n 6
+get_top_memory_json()
+{
+ps -eo pid,comm,state,%cpu,%mem  --sort=-%mem | awk '
+NR > 1 && $2 != "ps" {
+        printf "{\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s},\n",
+        $1, $2, $3, $4, $5
+    }
+    ' | head -n 5
+}
 
 
 echo ""
