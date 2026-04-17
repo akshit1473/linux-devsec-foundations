@@ -5,10 +5,7 @@ get_top_cpu_json()
 ps -eo pid=,comm=,state=,%cpu=,%mem= --sort=-%cpu |  awk '
 $2 != "ps" {
 count++
-data[count]= sprintf(
-"{\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s}",
-        $1, $2, $3, $4, $5
-    )
+data[count]= sprintf("{\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s}",$1, $2, $3, $4, $5)
     }
  END {
     for (i=1; i<=count && i<=5; i++) {
@@ -23,10 +20,7 @@ get_top_mem_json()
 ps -eo pid=,comm=,state=,%cpu=,%mem=  --sort=-%mem | awk '
  $2 != "ps" {
  count++
-      data[count]= sprintf(
-      "{\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s}",
-        $1, $2, $3, $4, $5
-    )
+      data[count]= sprintf( "{\"pid\": %s, \"cmd\": \"%s\", \"state\": \"%s\", \"cpu\": %s, \"mem\": %s}",$1, $2, $3, $4, $5)
 }
  END {
     for (i=1; i<=count && i<=5; i++) {
