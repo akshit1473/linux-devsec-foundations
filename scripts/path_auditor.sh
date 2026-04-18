@@ -25,7 +25,7 @@ OWNER=$(stat -c  %U  "$dir"  2>/dev/null)
         fi
 fi
 
-done <<<  "$(echo "AUDIT_PATH" |tir  ':'  '\n')"
+done <<<  "$(echo "$AUDIT_PATH" |tr  ':'  '\n')"
 
 }
 
@@ -71,7 +71,7 @@ output_path_json()
     echo "}"
 }
 
-}
+
 
 # function no. 4
 
@@ -85,7 +85,7 @@ for i in  "${issues[@]}"; do
 
 # function no. 5
 
-if [ "$1" = = "--json" ];then
+if [ "$i" == "--json" ];then
 output_path_json
 else
 output_path_cli
