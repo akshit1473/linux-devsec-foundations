@@ -78,9 +78,18 @@ output_path_json()
 output_path_cli()
 {
 echo "PATH AUDIT RESULT"
+
+if  [ ${#issues[@]} -eq  0 ]; then
+echo "no issues detected"
+return
+fi
+
+
+
 for i in  "${issues[@]}"; do
         echo "$i"
         done
+        
 }
 
 # function no. 5
