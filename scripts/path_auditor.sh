@@ -20,7 +20,7 @@ issues+=("WARN: $dir  does not exist.")
 else 
 
 OWNER=$(stat -c  %U  "$dir"  2>/dev/null)
-        if [ "!OWNER"  != "root" ];then
+        if [ "$OWNER"  != "root" ];then
         issues+=("CRITICAL: $dir owned by $OWNER")
         fi
 fi
@@ -79,13 +79,13 @@ output_path_cli()
 {
 echo "PATH AUDIT RESULT"
 for i in  "${issues[@]}"; do
-        echo "$1"
+        echo "$i"
         done
 }
 
 # function no. 5
-
-if [ "$i" == "--json" ];then
+collect_path_issues
+if [ "$1" == "--json" ];then
 output_path_json
 else
 output_path_cli
