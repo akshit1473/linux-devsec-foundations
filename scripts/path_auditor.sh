@@ -1,4 +1,4 @@
-#!usr/bin/bash
+#!/usr/bin/bash
 
 # function no.1 
 collect_path_issues()
