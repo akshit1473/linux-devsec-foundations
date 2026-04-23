@@ -1,21 +1,36 @@
-# Logs
+# logs — generated at runtime, not source code
 logs/
 *.log
 
-# Python cache
+# python — when you add the fastapi layer
 __pycache__/
 *.pyc
 *.pyo
-*.pyd
-
-# Virtual environments
+.venv/
 venv/
-.env/
+env/
+*.egg-info/
+dist/
 
-# OS files
+# fastapi
+.env
+
+# os generated
 .DS_Store
 Thumbs.db
 
-# Editor configs
+# editor files
 .vscode/
 .idea/
+*.swp
+*.swo
+
+# temp files from experiments
+/tmp/
+*.tmp
+
+# credentials — never commit these
+*.pem
+*.key
+id_rsa
+id_ed25519
