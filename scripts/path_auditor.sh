@@ -93,13 +93,13 @@ for i in  "${issues[@]}"; do
 }
 
 # function no. 5
+
 collect_path_issues
 if [ "$1" == "--json" ];then
 output_path_json
 else
 output_path_cli
 log_path_issues
-
 fi
 
 
