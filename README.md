@@ -1,4 +1,4 @@
-linux-devsec-foundations
+linux-devops and security -foundations
 A structured, documented learning repo covering Linux systems fundamentals — built toward a DevOps career with a security lens throughout.
 ---
 
